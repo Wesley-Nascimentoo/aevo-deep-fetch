@@ -1,6 +1,6 @@
 # Aevo Deep Fetch API Middleware
 
-Este projeto é um serviço intermediário (Middleware) construído em Python com FastAPI. O seu objetivo é abstrair a complexidade de comunicação com a API V2 da Aevo Innovate.
+Este projeto é um serviço intermediário (Middleware) construído em Python com FastAPI. O seu objetivo é abstrair a complexidade de comunicação com a API da Aevo Innovate.
 
 Atua como um facilitador para extração de dados (Data Fetching), resolvendo problemas estruturais da API original, como paginação manual e tipagem estrita, além de permitir a troca rápida entre ambientes (ex: produção, homologação) via configuração simples de variáveis de ambiente.
 
