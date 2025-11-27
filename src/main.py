@@ -1,9 +1,8 @@
 from fastapi import FastAPI, Query, HTTPException
 from typing import Optional
-import httpx
 import os
 from dotenv import load_dotenv
-import json
+
 
 load_dotenv()
 
@@ -14,55 +13,7 @@ AEVO_URL = f"https://{os.getenv("AEVO_ENV")}.aevoinnovate.net/webapi/api/ApiExte
 
 AEVO_TOKEN = os.getenv("AEVO_TOKEN_API")
 
-async def fetch_all_ideas(token: str, filters: dict):
-    accumulated = []
-    page = 1
-    total_pages = 1 
-    
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        
-        while page <= total_pages:
-            current_filters = filters.copy()
-            
-            current_filters["pagina"] = page 
-            
-            json_filters = json.dumps(current_filters)
-            
-            params = {
-                "token": token,
-                "filtros": json_filters
-            }
-            
-            try:
-                response = await client.get(AEVO_URL, params=params)
-                
-                if response.status_code != 200:
-                    print(f"Erro na API Aevo (Pág {page}): {response.status_code} - {response.text}")
-                
-                response.raise_for_status()
-                
-                data = response.json()
-                
-                items = data.get("resultado", [])
-                
-                total_pages = data.get("numeroPaginas") or 1
-                
-                accumulated.extend(items)
-                
-                print(f"Página {page} de {total_pages} processada. Itens nesta página: {len(items)}. Total acumulado: {len(accumulated)}")
-                
-                page += 1
-                
-            except httpx.HTTPStatusError as e:
-                raise HTTPException(
-                    status_code=e.response.status_code, 
-                    detail=f"Falha na API externa: {e.response.text}"
-                )
-            except Exception as e:
-                print(f"Erro crítico: {str(e)}")
-                raise HTTPException(status_code=500, detail=str(e))
-                
-    return accumulated
+
 
 @app.get("/")
 async def get_ideas(
