@@ -9,15 +9,11 @@ load_dotenv()
 
 app = FastAPI()
 
-# ATENÇÃO: Lembre-se de verificar se o subdomínio está correto
 AEVO_URL = "https://mondial.aevoinnovate.net/webapi/api/ApiExterna/v2/GetIdeias"
+
 AEVO_TOKEN = os.getenv("AEVO_TOKEN_API")
 
 async def fetch_all_ideas(token: str, filters: dict):
-    """
-    Busca iterativa (loop while) para evitar estouro de recursão.
-
-    """
     accumulated = []
     page = 1
     total_pages = 1 
