@@ -16,7 +16,7 @@ Atua como um facilitador para extração de dados (Data Fetching), resolvendo pr
 
 Clone o repositório:
 ```
-git clone [https://seu-repositorio.com/aevo-deep-fetch.git](https://seu-repositorio.com/aevo-deep-fetch.git)
+git clone https://github.com/Wesley-Nascimentoo/aevo-deep-fetch.git
 cd aevo-deep-fetch
 ```
 
