@@ -9,7 +9,8 @@ load_dotenv()
 
 app = FastAPI()
 
-AEVO_URL = "https://mondial.aevoinnovate.net/webapi/api/ApiExterna/v2/GetIdeias"
+
+AEVO_URL = f"https://{os.getenv("AEVO_ENV")}.aevoinnovate.net/webapi/api/ApiExterna/v2/GetIdeias"
 
 AEVO_TOKEN = os.getenv("AEVO_TOKEN_API")
 
@@ -19,6 +20,7 @@ async def fetch_all_ideas(token: str, filters: dict):
     total_pages = 1 
     
     async with httpx.AsyncClient(timeout=60.0) as client:
+        
         while page <= total_pages:
             current_filters = filters.copy()
             
