@@ -4,7 +4,7 @@ from src.services.fetch_all_ideas_service import fetch_all_ideas_service
 
 router = APIRouter()
 
-@router.get("/ideais") 
+@router.get("/") 
 async def get_ideas(
     DataCriacaoInicio: Optional[str] = Query(None),
     DataCriacaoTermino: Optional[str] = Query(None),
