@@ -3,7 +3,7 @@ import json
 from fastapi import HTTPException
 from src.core.config import settings
 
-async def fetch_all_ideas_service(filters: dict):
+async def fetch_all_ideas_service(filters: dict) -> list:
     if not settings.AEVO_URL_GET_IDEAS:
         raise HTTPException(status_code=500, detail="Ambiente AEVO_ENV não configurado.")
     
