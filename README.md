@@ -39,7 +39,7 @@ pip install -r requirements.txt
 Crie um ficheiro .env na raiz do projeto. Graças à arquitetura dinâmica, não deve expor a URL completa, apenas o nome do seu ambiente (subdomínio).
 ```
 # 1. Defina o subdomínio do seu ambiente Aevo
-# Exemplo: Se a sua URL é [https://wesley.aevoinnovate.net/](https://mondial.aevoinnovate.net/)..., use apenas "wesley"
+# Exemplo: Se a sua URL é [https://wesley.aevoinnovate.net/], use apenas "wesley"
 AEVO_ENV=seu_ambiente
 
 # 2. Seu Token de Acesso (Privado)
