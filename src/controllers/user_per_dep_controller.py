@@ -19,6 +19,6 @@ async def get_users_per_dep(
     results = await fetch_users_per_dep(filters=active_filters)
 
     return {
-        "total_ideas_fetched": len(results),
-        "ideas": results
+        "total_users_fetched": len(results),
+        "users": results
     }
