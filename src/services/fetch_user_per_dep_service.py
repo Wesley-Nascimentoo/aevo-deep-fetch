@@ -3,8 +3,10 @@ import json
 from fastapi import HTTPException
 from src.core.config import settings
 
-async def fetch_all_ideas_service(filters: dict) -> list:
-    if not settings.AEVO_URL_GET_IDEAS:
+async def fetch_users_per_dep(filters: dict):
+    
+    
+    if not settings.AEVO_URL_GET_USERS:
         raise HTTPException(status_code=500, detail="Ambiente AEVO_ENV não configurado.")
     
     if not settings.AEVO_TOKEN:
@@ -27,7 +29,7 @@ async def fetch_all_ideas_service(filters: dict) -> list:
             }
             
             try:
-                response = await client.get(settings.AEVO_URL_GET_IDEAS, params=params)
+                response = await client.get(settings.AEVO_URL_GET_USERS, params=params)
                 
                 if response.status_code != 200:
                     print(f"Erro na API Aevo (Pág {page}): {response.status_code} - {response.text}")
