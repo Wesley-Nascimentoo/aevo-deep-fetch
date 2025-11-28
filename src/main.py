@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from src.controllers.ideas_controller import router as ideas_router
 from src.controllers.user_per_dep_controller import router as users_router
+from src.controllers.ideas_to_implements_controller import router as implements_router
 
 app = FastAPI(
     title="Aevo DeepFetch Middleware",
@@ -11,6 +12,9 @@ app = FastAPI(
 app.include_router(ideas_router, prefix="/ideias", tags=["Ideias"])
 
 app.include_router(users_router, prefix="/usuarios", tags=["Usuários"])
+
+app.include_router(implements_router, prefix="/implantacoes", tags=["Implantações"])
+
 
 if __name__ == "__main__":
     import uvicorn

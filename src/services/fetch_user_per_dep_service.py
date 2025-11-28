@@ -4,6 +4,8 @@ from fastapi import HTTPException
 from src.core.config import settings
 
 async def fetch_users_per_dep(filters: dict):
+    
+    
     if not settings.AEVO_URL_GET_USERS:
         raise HTTPException(status_code=500, detail="Ambiente AEVO_ENV não configurado.")
     
