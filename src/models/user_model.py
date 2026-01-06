@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, TypeAdapter
-from typing import Optional, List
+from pydantic import BaseModel, Field
+from typing import Optional
 from datetime import datetime
 
 class DepartmentInfo(BaseModel):
@@ -13,15 +13,18 @@ class User(BaseModel):
     
     full_name: str = Field(alias="Name")
     username: str = Field(alias="UserName") 
-    email: str = Field(alias="Email")
-    job_title: str = Field(alias="Cargo")
+    email: Optional[str] = Field(default=None, alias="Email") # Good practice to make Email optional too
+    job_title: Optional[str] = Field(default=None, alias="Cargo") # Job title can sometimes be null
     
     department: DepartmentInfo = Field(alias="Departamento")
     
-    company: str = Field(alias="Empresa")
-    cost_center: str = Field(alias="CentroCusto")
-    area: str = Field(alias="Area")
-    division: str = Field(alias="Divisao")
+    company: Optional[str] = Field(default=None, alias="Empresa")
+    
+    # --- FIX IS HERE: Changed to Optional[str] ---
+    cost_center: Optional[str] = Field(default=None, alias="CentroCusto") 
+    
+    area: Optional[str] = Field(default=None, alias="Area")
+    division: Optional[str] = Field(default=None, alias="Divisao")
     
     created_at: datetime = Field(alias="CriadoEm")
     accepted_at: Optional[datetime] = Field(default=None, alias="DataAceite")
