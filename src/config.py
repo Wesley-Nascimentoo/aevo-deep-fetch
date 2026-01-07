@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    BASE_URL = os.getenv("API_BASE_URL")
+    BASE_URL = os.getenv("BASE_URL")
     API_TOKEN = os.getenv("API_TOKEN")
 
     @staticmethod
