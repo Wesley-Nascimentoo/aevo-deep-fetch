@@ -63,3 +63,7 @@ class CreationAnalytics(BaseModel):
     # Resumo Coletivo (Departamento)
     monthly_timeline: List[TimelineComparison]
     weekly_timeline: List[TimelineComparison]
+
+class CombinedDepartmentReport(BaseModel):
+    execution_analytics: DepartmentAnalytics
+    creation_analytics: CreationAnalytics
