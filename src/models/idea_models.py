@@ -12,6 +12,10 @@ class Creator(BaseModel):
     is_active: Optional[bool] = Field(default=None, alias="Ativo")
 
 class Implementer(BaseModel):
+    """
+    Model for 'ResponsaveisImplantacao'.
+    Based on the snippet provided earlier.
+    """
     idea_id: Optional[int] = Field(default=None, alias="IdeiaId")
     user_id: Optional[str] = Field(default=None, alias="Id")
     name: Optional[str] = Field(default=None, alias="Name")
@@ -63,50 +67,55 @@ class Attachment(BaseModel):
     name: Optional[str] = Field(default=None, alias="Nome")
     url: Optional[str] = Field(default=None, alias="URL")
 
-# --- UPDATED: Stage Model (Etapas) ---
-# Refactored based on the error logs showing 'FluxoId' instead of 'Id'
 class Stage(BaseModel):
-    # Made 'Id' optional because it was missing in the payload
-    id: Optional[int] = Field(default=None, alias="Id")
-    
-    # Added fields seen in the error log
+    """
+    Stage model refactored based on real API JSON response.
+    Includes labels, observations and flow/state IDs.
+    """
     flow_id: Optional[int] = Field(default=None, alias="FluxoId")
+    state_id: Optional[int] = Field(default=None, alias="EstadoId")
     idea_id: Optional[int] = Field(default=None, alias="IdeiaId")
     
-    title: Optional[str] = Field(default=None, alias="Titulo")
-    description: Optional[str] = Field(default=None, alias="Descricao")
+    # Dates
+    start_date: Optional[datetime] = Field(default=None, alias="DataEntrada")
+    end_date: Optional[datetime] = Field(default=None, alias="DataSaida")
     
-    # 'Estado' appeared in the error log as well, mapping it just in case
-    status_label: Optional[str] = Field(default=None, alias="Estado") 
+    days_in_stage: Optional[int] = Field(default=None, alias="DiasNaEtapa")
     
-    sequence: Optional[int] = Field(default=None, alias="Ordem")
-    type: Optional[int] = Field(default=None, alias="Tipo")
-    start_date: Optional[datetime] = Field(default=None, alias="DataInicio")
-    end_date: Optional[datetime] = Field(default=None, alias="DataFim")
-    is_active: Optional[bool] = Field(default=None, alias="Ativo")
+    # Labels (Multi-language support in API)
+    label_pt: Optional[str] = Field(default=None, alias="LabelPt")
+    label_en: Optional[str] = Field(default=None, alias="LabelEn")
+    label_es: Optional[str] = Field(default=None, alias="LabelEs")
+    
+    observation: Optional[str] = Field(default=None, alias="Observacao")
 
 # --- Main Model ---
 
 class Idea(BaseModel):
     id: int = Field(alias="Id")
     
+    # Status Info
     current_stage_name: Optional[str] = Field(default=None, alias="Estado")
     current_stage_id: int = Field(alias="EstadoId")
     
+    # Dates
     updated_at: datetime = Field(alias="DataAtualizacao")
     created_at: datetime = Field(alias="CriadoEm")
     
+    # Content
     title: Optional[str] = Field(default=None, alias="Titulo")
     description: Optional[str] = Field(default=None, alias="Descricao")
     benefit: Optional[str] = Field(default=None, alias="Beneficio")
     
+    # Metrics
     return_value: Optional[float] = Field(default=0.0, alias="ValorRetorno")
     completion_percentage: Optional[float] = Field(default=0.0, alias="PercentualConcluido")
     
+    # Creator info
     creator_id: Optional[str] = Field(default=None, alias="ElaboradorId")
     external_id: Optional[str] = Field(default=None, alias="IdExterno")
 
-    # Objects
+    # Nested Objects
     creator: Optional[Creator] = Field(default=None, alias="Elaborador")
     campaign: Optional[Campaign] = Field(default=None, alias="Campanha")
     department: Optional[Department] = Field(default=None, alias="Departamento")
@@ -115,12 +124,12 @@ class Idea(BaseModel):
     # Lists
     collaborators: List[Collaborator] = Field(default_factory=list, alias="Colaboradores")
     implementers: List[Implementer] = Field(default_factory=list, alias="ResponsaveisImplantacao")
+    
     additional_fields: List[AdditionalField] = Field(default_factory=list, alias="CamposAdicionais")
     classification_criteria: List[ClassificationCriteria] = Field(default_factory=list, alias="CriteriosClassificacaoItens")
     attachments: List[Attachment] = Field(default_factory=list, alias="AnexosIdeia")
-    
-    # Nested List of Stages
     stages: List[Stage] = Field(default_factory=list, alias="Etapas")
 
     class Config:
         populate_by_name = True
+        extra = "ignore" # Ignora campos extras que não mapeamos para não dar erro

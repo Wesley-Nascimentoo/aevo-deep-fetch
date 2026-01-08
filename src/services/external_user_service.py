@@ -34,7 +34,7 @@ class ExternalUserService:
             print(f"[ExternalUserService] Fetching page {current_page} for Dept {department_id}...")
 
             # 2. Execute Request
-            url = f"{Config.API_BASE_URL}/webapi/api/apiExterna/Usuarios"
+            url = f"{Config.BASE_URL}/webapi/api/apiExterna/Usuarios"
             
             response = requests.get(url, params=params)
             response.raise_for_status()
